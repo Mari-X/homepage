@@ -3,29 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <meta name="robots" content="none">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>itMother</title>
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
         <header>
-            <div class="header"></div>
             <div id="logo" onclick="slowScroll('#top')">
-                <span id="span_logo">it Mother</span>
+                <span>it Mother</span>
             </div>
-            <div class="header_burger">
-                <span></span>
-            </div>
-            
             <div id="menu">
                 <a href="#" title="Обо мне" onclick="slowScroll('#main')">Обо мне</a>
                 <a href="#" title="Образование" onclick="slowScroll('#edu')">Образование</a>
                 <a href="#" title="Навыки" onclick="slowScroll('#skills')">Навыки</a>
                 <a href="#" title="Контакты" onclick="slowScroll('#contacts')">Контакты</a>
             </div>
-            
-            
         </header>
 
         <div id="container">
@@ -89,9 +81,8 @@
                         браться за новые возможности саморазвития.
                     </p>
                     <p>
-                        Я легко осваиваю новые технологии, не боюсь тяжелой работы, быстро 
-                        справляюсь с поставленными задачами, обожаю учиться и находить нестандартные решения. 
-                        Считаю себя интеллигентной, воспитанной, 
+                        Я умная, сообразительная, ответственная, творчески мыслящая, образованная, увлеченная, 
+                        обожаю учиться и находить нестандартные решения. Считаю себя интеллигентной, воспитанной, 
                         пунктуальной. Я серьезно отношусь к выполнению своих обязанностей, коммуникабельная,
                          крепкий сангвиник, люблю людей и хочу быть полезной обществу. Воспринимаю мир вокруг 
                          себя как необъятное пространство возможностей.
@@ -207,13 +198,33 @@
             </div>
 
             <h5>Свяжитесь со мной</h5>
-            <div id="contacts_wrap">
-                
-                <div id="page"><img src="images/facebook_new.png"><span><a href="https://www.facebook.com/profile.php?id=100001445771435" target="blank">Страница&nbsp;в&nbsp;соцсетях</a></span></div>
-                <div id="mail"><img src="images/email_new.png"><span>marina.khotyachuk@gmail.com</span></div>
-                <div id="phone"><img src="images/phone_new.png"><span>+38&nbsp;(067)&nbsp;757&nbsp;44&nbsp;31</span></div>
-            </div>
-      
+            <form id="form_input" action="#">
+                    <!-- Hidden Required Fields -->
+		            <input type="hidden" name="project_name" value="itMother">
+		            <input type="hidden" name="admin_email" value="marina.khotyachuk@gmail.com">
+		            <input type="hidden" name="form_subject" value="Form contacts">
+		            <!-- END Hidden Required Fields -->
+
+                <div id="form_input_fst">
+                <input id="name"    type="text"     placeholder="Ваше имя"  name="name"     required ><br>
+                <input id="subj"    type="text"     placeholder="Тема"      name="subject" ><br>
+                <input id="email"   type="email"    placeholder="Ваш email" name="email"    required ><br>
+                 </div>
+
+                <div id="form_input_scnd">
+                <textarea id="message" placeholder="Напишите ваше сообщение" name="message" ></textarea><br>
+
+                <button class="btn">Отправить</button>
+                </div>
+
+                <div id="form_input_third">
+                    <div> <a href="https://www.facebook.com/profile.php?id=100001445771435" target="_blank"><img src="../images/facebook.png"></a>
+                        <a href="https://www.facebook.com/profile.php?id=100001445771435" target="_blank">Моя страница на Facebook</a>
+                    </div>
+                    <div><img src="../images/email.png"><span>marina.khotyachuk@gmail.com</span></div>
+                    <div><img src="../images/phone.png"><span>+38 (067) 757 - 44 - 31</span></div>
+                </div>
+            </form>
          
         </div>
         </div>
@@ -244,20 +255,28 @@
                 });
         </script>
 
+
         <script>
-            $(document).ready(function(){
-                $('.header_burger').click(function(event){
-                    $('.header_burger,#menu').toggleClass('active');
-                    $('body').toggleClass('lock');
-                  
+         $(document).ready(function() {
+
+                //E-mail Ajax Send
+                $("form").submit(function() { //Change
+                    var th = $(this);
+                    $.ajax({
+                        type: "POST",
+                        url: "mail.php", //Change
+                        data: th.serialize()
+                    }).done(function() {
+                        alert("Thank you!");
+                        setTimeout(function() {
+                            // Done Functions
+                            th.trigger("reset");
+                        }, 1000);
+                    });
+                    return false;
                 });
 
-                    $('#menu a').click(function(event) {
-                        $('.header__burger,#menu').removeClass('active');
-                        $('body').removeClass('lock');
-                    });
-            });
+                });
         </script>
-       
     </body>
 </html>
